@@ -5,28 +5,9 @@ var mongoose = require('mongoose');
 var database = require('./database/database');
 
 User = require('./Models/users');
-
+Income = require('./Models/income');
 //Mongoose connection
 database.init();
-
-var callback = function(err,data){
-	
-	if(err)
-		console.log(err);
-	else
-		console.log(data);
-		
-}
-
-app.get('/api/users',function(req,res){
-    User.GetUsers(function(err,users)
-    {
-        if(err){
-            throw err;
-        }
-        res.json(users);
-    });
-});
 
 app.get('/api/user',function(req,res){
     User.GetUser({'id':'ravalika'}, 'name',function(err,users)
@@ -37,3 +18,31 @@ app.get('/api/user',function(req,res){
         res.json(users);
     });
 });
+
+app.get('/api/addUser',function(req,res){
+    User.AddUser({name:'Ravalika',id:'ravalika',password:'1232423','email':'rava@hms.com'},
+    function(err,user)
+    {
+        if(err){
+            res.json(err);
+        }else{
+            res.json(users);
+        }
+    });
+});
+
+
+app.get('/api/addIncome',function(req,res){
+    Income.AddIncomeDetails(
+    function(err,income)
+    {
+        if(err){
+            res.json(err);
+        }else{
+            res.json(income);
+        }
+    });
+});
+
+app.listen(3000);
+console.log('running');
