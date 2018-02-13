@@ -27,7 +27,7 @@ app.get('/api/getIncomeDetails',function(req,res){
         }
         res.json(users);
     });
-});
+}); 
 
 app.get('/api/addUser',function(req,res){
     User.AddUser({name:'Ravalika',id:'ravalika',password:'1232423','email':'rava@hms.com'},

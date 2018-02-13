@@ -9,11 +9,16 @@ var incomeSchema = mongoose.Schema({
     amount: {type: String, default: "123456"},
     bank: {type: String, require: true}
 });
-
+User = require('./users');
 var Income = module.exports = mongoose.model('income',incomeSchema,'income');
 
 Income.GetIncomeDetails = function(callback){
-    Income.find({id:ObjectId("5a8192472a40ef145424baef")},callback);
+    // Income.find({id:ObjectId("5a8192472a40ef145424baef")},callback);
+    User.find({id: 'ravalika'}, function(err, docs) {
+        var ids = docs.map(function(doc) { return doc._id; });
+        Income.find({id: {$in: ids}}, callback);
+    });
+
 };
 
 Income.AddIncomeDetails = function(userid,callback){
@@ -26,4 +31,4 @@ Income.AddIncomeDetails = function(userid,callback){
         bank: "SBI"
     });
     newRecord.save(callback);
-};
+}; 
