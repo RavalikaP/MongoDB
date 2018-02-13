@@ -10,7 +10,17 @@ Income = require('./Models/income');
 database.init();
 
 app.get('/api/user',function(req,res){
-    User.GetUser({'id':'ravalika'}, 'name',function(err,users)
+    User.GetUser({'id':'ravalika'}, '_id',function(err,users)
+    {
+        if(err){
+            throw err;
+        }
+        res.json(users._id);
+    });
+});
+
+app.get('/api/getIncomeDetails',function(req,res){
+    Income.GetIncomeDetails(function(err,users)
     {
         if(err){
             throw err;
@@ -33,13 +43,13 @@ app.get('/api/addUser',function(req,res){
 
 
 app.get('/api/addIncome',function(req,res){
-    Income.AddIncomeDetails(
-    function(err,income)
+    Income.AddIncomeDetails("",
+    function(err,userid)
     {
         if(err){
             res.json(err);
         }else{
-            res.json(income);
+            res.json(userid);
         }
     });
 });
